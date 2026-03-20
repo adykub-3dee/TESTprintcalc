@@ -31,7 +31,7 @@
         .st-btn-ok.active { background: var(--success); }
         .calc-preview { background: #1a1500; padding: 12px; border-radius: 10px; margin: 10px 0; border: 1px solid var(--accent); color: var(--accent); }
         .line { display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 5px; }
-        .input-inline { background: rgba(255, 204, 0, 0.1); border: 1px solid var(--accent); color: var(--accent); padding: 4px 8px; border-radius: 4px; width: 85px; text-align: right; font-weight: bold; }
+        .input-inline { background: rgba(255, 204, 0, 0.1); border: 1px solid var(--accent); color: var(--accent); padding: 4px 8px; border-radius: 4px; width: 85px; text-align: right; font-weight: bold; border: 1px solid var(--accent); }
         .btn-add { background: var(--primary); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-top: 5px; }
         .btn-edit-mode { background: var(--accent); color: #000; }
         .btn-buy { background: transparent; color: var(--success); border: 1px solid var(--success); padding: 8px; width: 100%; border-radius: 10px; margin-top: 10px; cursor: pointer; font-weight: bold; }
@@ -64,7 +64,6 @@
         .job-profit { min-width: 70px; text-align: right; font-weight: 900; font-size: 1.1em; }
         .actions { display: flex; gap: 5px; }
         .action-btn { background: #222; border: 1px solid #444; color: #aaa; cursor: pointer; padding: 8px; border-radius: 6px; }
-        .action-btn.active-status { background: var(--success); color: #000; border-color: var(--success); }
     </style>
 </head>
 <body>
@@ -85,11 +84,13 @@
     <div class="side-panels">
         <div class="panel sticky">
             <h2 id="form_title" style="color:var(--primary); font-size: 1.1em; margin-bottom: 15px;">✚ NOVÁ TLAČ</h2>
+            
             <label>Typ záznamu</label>
             <div class="status-toggle">
                 <div id="st_cp" class="st-btn st-btn-cp" onclick="setStatus('cp')">CP (Ponuka)</div>
                 <div id="st_ok" class="st-btn st-btn-ok active" onclick="setStatus('ok')">OK (Výroba)</div>
             </div>
+
             <label>Názov Projektu</label>
             <input type="text" id="in_name" placeholder="Názov...">
             <div class="row">
@@ -102,34 +103,46 @@
             </div>
             <label>Predajná cena / 1 ks (€)</label>
             <input type="number" id="in_price_per" step="any">
+            
             <div class="calc-preview">
                 <div class="line"><span>MATERIÁL SPOLU:</span> <span id="view_total_w">0 g</span></div>
-                <div class="line"><span>NÁKLAD (€):</span> <input type="number" id="view_total_cost" class="input-inline" step="any" value="0.00" oninput="updatePreview(false)"></div>
-                <div class="line" style="border-top: 1px solid #444; padding-top: 5px; font-size: 1.1em;"><span>ČISTÝ ZISK:</span> <span id="view_total_profit">0.00 €</span></div>
+                <div class="line">
+                    <span>NÁKLAD (€):</span> 
+                    <input type="number" id="view_total_cost" class="input-inline" step="any" value="0.00" oninput="updatePreview(false)">
+                </div>
+                <div class="line" style="border-top: 1px solid #444; padding-top: 5px; font-size: 1.1em;">
+                    <span>ČISTÝ ZISK:</span> <span id="view_total_profit">0.00 €</span>
+                </div>
             </div>
+            
             <button class="btn-add" id="btn_save" onclick="saveItem()">ULOŽIŤ DO HISTÓRIE</button>
             <button id="btn_cancel" onclick="clearForm()" style="display:none; background:#333; border:1px solid #444; color:#fff; padding:10px; border-radius:10px; width:100%; margin-top:10px; cursor:pointer; font-weight:bold;">✖ ZRUŠIŤ ÚPRAVU</button>
             <button class="btn-buy" id="btn_other" onclick="addOtherItem()">✚ NÁKUP / INÉ VÝDAVKY</button>
+
             <div class="cloud-zone">
                 <button class="btn-cloud btn-backup" id="btn_backup" onclick="handleCloud('backup')">☁️ ZÁLOHOVAŤ</button>
                 <button class="btn-cloud btn-restore" id="btn_restore" onclick="handleCloud('restore')">⬇️ OBNOVIŤ</button>
             </div>
         </div>
     </div>
+
     <div>
-        <div class="summary-grid" id="stats_area">
+        <div class="summary-grid">
             <div class="stat-card"><div class="stat-label">Vytlačené (OK)</div><div class="stat-value" id="total_kg_ever">0.00 kg</div></div>
             <div class="stat-card"><div class="stat-label">Čas Tlače (OK)</div><div class="stat-value" id="total_time_ever">0h 0m</div></div>
             <div class="stat-card"><div class="stat-label">Zákazky</div><div class="stat-value" id="stat_count">0</div></div>
             <div class="stat-card card-profit"><div class="stat-label" style="color:var(--success)">Čistý Zisk</div><div class="stat-value" id="stat_profit">0.00 €</div></div>
         </div>
+
         <input type="text" id="search_input" class="search-input" placeholder="🔍 Vyhľadať v histórii..." oninput="refreshUI()">
         <div id="list_container"></div>
     </div>
 </div>
 
 <script>
-    const CLOUD_URL = "https://script.google.com/macros/s/AKfycbx-NoHXuzfx7EVN1ZeY2W4nUmj6RS1JKZylLEabzdFueGmgpAiBPWgOZiNxfHxRjaHN/exec";
+    // TU JE TVOJ NOVÝ CLOUD LINK
+    const CLOUD_URL = "https://script.google.com/macros/s/AKfycbytHjG4psuRQMQslCQqmUDCrFLPMieRGKHt8d2yi9ZrZDYtCVx22EP7qHd8bQqXud67/exec";
+    
     let items = [];
     let editingId = null;
     let currentStatus = 'ok';
@@ -157,12 +170,11 @@
 
         try {
             if(action === 'backup') {
-                // Posielame objekt s dátami AJ heslom
                 const payload = { pass: heslo, data: items };
+                // Pri POST s no-cors nevidíme odpoveď, ale dáta sa odošlú
                 await fetch(CLOUD_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-                alert("Požiadavka na zálohu odoslaná!");
+                alert("Zálohovanie spustené (ak je heslo správne, dáta sa uložia).");
             } else {
-                // Pri obnove posielame heslo ako parameter v URL
                 const res = await fetch(`${CLOUD_URL}?pass=${heslo}`);
                 const result = await res.json();
                 if(result.error) {
@@ -179,7 +191,6 @@
         btn.innerText = origText;
     }
 
-    // --- Zvyšok logiky zostáva rovnaký ---
     function updatePreview(auto = true) {
         const w = parseFloat(document.getElementById('in_w').value) || 0;
         const c = parseInt(document.getElementById('in_count').value) || 1;
@@ -188,11 +199,14 @@
         const p = parseFloat(document.getElementById('in_price_per').value) || 0;
         const f = parseFloat(document.getElementById('cfg_fil').value) || 19;
         const e = parseFloat(document.getElementById('cfg_ele').value) || 0.19;
+
         const totalW = w * c;
         const totalMins = (h * 60 + m) * c;
         const matC = (totalW / 1000) * f;
         const eleC = (totalMins / 60) * 0.12 * e;
+
         if(auto) document.getElementById('view_total_cost').value = (matC + eleC).toFixed(2);
+        
         const cost = parseFloat(document.getElementById('view_total_cost').value) || 0;
         document.getElementById('view_total_w').innerText = totalW.toFixed(0) + " g";
         document.getElementById('view_total_profit').innerText = (p * c - cost).toFixed(2) + " €";
@@ -208,15 +222,25 @@
         const c = updatePreview(false);
         const newItem = {
             id: editingId || Date.now(),
-            type: 'print', status: currentStatus, name: name,
-            sell: Number(c.totalSell), cost: Number(c.cost), profit: Number(c.totalSell - c.cost),
-            totalW: Number(c.totalW), mins: Number(c.totalMins),
-            weight: Number(c.w), h: Number(c.h), m: Number(c.m), pricePer: Number(c.p),
+            type: 'print',
+            status: currentStatus,
+            name: name,
+            sell: Number(c.totalSell),
+            cost: Number(c.cost),
+            profit: Number(c.totalSell - c.cost),
+            totalW: Number(c.totalW),
+            mins: Number(c.totalMins),
+            weight: Number(c.w), h: Number(c.h), m: Number(c.m), 
+            pricePer: Number(c.p),
             count: parseInt(document.getElementById('in_count').value) || 1,
             date: new Date().toLocaleString('sk-SK')
         };
-        if(editingId) items = items.map(i => i.id === editingId ? newItem : i);
-        else items.unshift(newItem);
+
+        if(editingId) {
+            items = items.map(i => i.id === editingId ? newItem : i);
+        } else {
+            items.unshift(newItem);
+        }
         clearForm(); refreshUI();
     }
 
@@ -226,8 +250,10 @@
     }
 
     function editItem(id) {
-        const i = items.find(x => x.id === id); if(!i || i.type !== 'print') return;
-        editingId = id; setStatus(i.status || 'ok');
+        const i = items.find(x => x.id === id); 
+        if(!i || i.type !== 'print') return;
+        editingId = id;
+        setStatus(i.status || 'ok');
         document.getElementById('in_name').value = i.name;
         document.getElementById('in_w').value = i.weight || 0;
         document.getElementById('in_count').value = i.count || 1;
@@ -243,10 +269,14 @@
     }
 
     function clearForm() {
-        editingId = null; setStatus('ok');
-        document.getElementById('in_name').value = ''; document.getElementById('in_w').value = '';
-        document.getElementById('in_h').value = ''; document.getElementById('in_m').value = '';
-        document.getElementById('in_price_per').value = ''; document.getElementById('in_count').value = '1';
+        editingId = null;
+        setStatus('ok');
+        document.getElementById('in_name').value = '';
+        document.getElementById('in_w').value = '';
+        document.getElementById('in_h').value = '';
+        document.getElementById('in_m').value = '';
+        document.getElementById('in_price_per').value = '';
+        document.getElementById('in_count').value = '1';
         document.getElementById('form_title').innerText = "✚ NOVÁ TLAČ";
         document.getElementById('btn_save').innerText = "ULOŽIŤ DO HISTÓRIE";
         document.getElementById('btn_cancel').style.display = "none";
@@ -280,13 +310,20 @@
             const sell = Number(i.sell) || 0;
             const cost = Number(i.cost) || 0;
             const profit = sell - cost;
-            if(!isCP) { tObrat += sell; tProfit += (i.type === 'buy' ? Number(i.profit) : profit); okCount++; }
+
+            if(!isCP) {
+                tObrat += sell;
+                tProfit += (i.type === 'buy' ? Number(i.profit) : profit);
+                okCount++;
+            }
+
             let details = "Iné";
             if(i.type === 'print') {
                 const g = Number(i.totalW) || 0; const m = Number(i.mins) || 0;
                 if(!isCP) { tKg += g; tMins += m; }
                 details = `${g.toFixed(0)}g | ${Math.floor(m/60)}h ${m%60}m`;
             }
+
             container.innerHTML += `
                 <div class="job-card type-${i.type} ${editingId === i.id ? 'is-editing' : ''} ${isCP ? 'is-cp' : ''}">
                     <div class="job-info">
@@ -298,12 +335,14 @@
                         <div class="data-item"><span class="data-label">Zisk</span><span class="data-val" style="color:var(--success)">${profit.toFixed(2)}€</span></div>
                     </div>
                     <div class="actions">
-                        <button class="action-btn" onclick="toggleItemStatus(${i.id})">⇄</button>
-                        <button class="action-btn" onclick="editItem(${i.id})">✎</button>
-                        <button class="action-btn" onclick="deleteItem(${i.id})">🗑</button>
+                        <button class="action-btn" title="CP/OK" onclick="toggleItemStatus(${i.id})">⇄</button>
+                        <button class="action-btn" title="Kópia" onclick="duplicateItem(${i.id})">❐</button>
+                        <button class="action-btn" title="Upraviť" onclick="editItem(${i.id})">✎</button>
+                        <button class="action-btn" title="Zmazať" onclick="deleteItem(${i.id})">🗑</button>
                     </div>
                 </div>`;
         });
+
         document.getElementById('stat_count').innerText = okCount;
         document.getElementById('stat_profit').innerText = tProfit.toFixed(2) + " €";
         document.getElementById('total_kg_ever').innerText = (tKg/1000).toFixed(2) + " kg";
