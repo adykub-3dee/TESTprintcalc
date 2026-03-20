@@ -166,7 +166,6 @@
 
 <script>
     const CLOUD_URL = "https://script.google.com/macros/s/AKfycbx-NoHXuzfx7EVN1ZeY2W4nUmj6RS1JKZylLEabzdFueGmgpAiBPWgOZiNxfHxRjaHN/exec";
-    // ZMAZANÉ: premenná MOJE_HESLO bola kompletne odstránená
 
     let items = [];
     let editingId = null;
@@ -195,19 +194,16 @@
         
         try {
             if(action === 'backup') {
-                // Odošleme dáta zabalené spolu s heslom pre Google Script
                 const payload = { pass: zadaneHeslo, data: items };
                 await fetch(CLOUD_URL, {method:'POST', mode:'no-cors', body: JSON.stringify(payload)});
                 alert("Zálohované! (Ak je heslo správne, dáta sa do cloudu uložili)");
             } else {
-                // Heslo pridáme bezpečne do URL pri obnove
                 const res = await fetch(`${CLOUD_URL}?pass=${encodeURIComponent(zadaneHeslo)}`);
                 const data = await res.json();
                 
                 if (data.error) {
                     alert("Chyba: " + data.error);
                 } else {
-                    // Kontrola či prišlo správne pole dát
                     items = Array.isArray(data) ? data : (data.data || []);
                     refreshUI();
                     alert("Dáta obnovené!");
