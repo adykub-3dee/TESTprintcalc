@@ -11,59 +11,77 @@
             --border: #333; --cp-color: #aaa;
         }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); padding: 10px; margin: 0; }
+        
         .header { width: 100%; max-width: 1200px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 12px; margin: 0 auto 15px auto; gap: 10px; }
         .header-center { flex-grow: 1; text-align: center; }
         #live-clock { font-size: 1.8em; font-weight: 900; color: #fff; margin-bottom: 2px; }
         #live-date { font-size: 0.85em; color: var(--primary); text-transform: uppercase; font-weight: bold; }
+        
         .config-bar { background: #001a33; padding: 10px; border-radius: 10px; display: flex; gap: 12px; border: 1px solid var(--primary); }
         .config-input { background: #000; border: 1px solid var(--primary); color: var(--primary); font-weight: bold; text-align: center; border-radius: 4px; padding: 3px; width: 60px; }
+
         .main-layout { width: 100%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 20px; }
         @media (min-width: 768px) { .main-layout { grid-template-columns: 340px 1fr; } }
+
         .panel { background: var(--card); border-radius: 16px; padding: 20px; border: 1px solid var(--border); }
         .sticky { position: sticky; top: 15px; }
+
         label { display: block; font-size: 0.65em; color: #aaa; text-transform: uppercase; margin-bottom: 4px; font-weight: 600; }
         input { width: 100%; background: #000; border: 1px solid #444; color: white; padding: 10px; border-radius: 8px; box-sizing: border-box; font-size: 16px; margin-bottom: 8px; outline: none; }
+        
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
         .status-toggle { display: flex; background: #000; border-radius: 8px; border: 1px solid #444; margin-bottom: 15px; overflow: hidden; }
         .st-btn { flex: 1; padding: 10px; text-align: center; font-weight: bold; cursor: pointer; font-size: 0.8em; transition: 0.2s; color: #555; }
         .st-btn.active { color: #000; }
         .st-btn-cp.active { background: var(--cp-color); }
         .st-btn-ok.active { background: var(--success); }
+
         .calc-preview { background: #1a1500; padding: 12px; border-radius: 10px; margin: 10px 0; border: 1px solid var(--accent); color: var(--accent); }
         .line { display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 5px; }
         .input-inline { background: rgba(255, 204, 0, 0.1); border: 1px solid var(--accent); color: var(--accent); padding: 4px 8px; border-radius: 4px; width: 85px; text-align: right; font-weight: bold; border: 1px solid var(--accent); }
+
         .btn-add { background: var(--primary); color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-top: 5px; }
         .btn-edit-mode { background: var(--accent); color: #000; }
         .btn-buy { background: transparent; color: var(--success); border: 1px solid var(--success); padding: 8px; width: 100%; border-radius: 10px; margin-top: 10px; cursor: pointer; font-weight: bold; }
+
         .cloud-zone { display: flex; gap: 10px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #333; }
         .btn-cloud { flex: 1; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; font-size: 0.8em; }
         .btn-backup { background: #0044cc; color: white; }
         .btn-restore { background: #333; color: white; border: 1px solid #555; }
+
         .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
         @media (min-width: 900px) { .summary-grid { grid-template-columns: repeat(4, 1fr); } }
+        
         .stat-card { background: #111; padding: 12px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
         .stat-label { font-size: 0.6em; color: #888; text-transform: uppercase; }
         .stat-value { font-size: 1.1em; font-weight: 900; }
         .card-spent { color: var(--danger); border-bottom: 2px solid var(--danger); }
         .card-profit { border: 2px solid var(--success); color: var(--success); background: #001a0d; }
+
         .search-input { width: 100%; background: #111; border: 2px solid var(--primary); color: white; padding: 12px; border-radius: 10px; font-weight: bold; box-sizing: border-box; margin-bottom: 15px; }
+
         .job-card { background: #1a1a1a; padding: 12px 15px; border-radius: 10px; margin-bottom: 8px; border: 1px solid #333; display: flex; align-items: center; gap: 15px; justify-content: space-between; flex-wrap: wrap; }
         .job-card.is-editing { border: 2px solid var(--accent); background: #252000; }
         .job-card.is-cp { border: 1px dashed var(--cp-color); opacity: 0.7; background: #111; }
         .type-buy { border-left: 5px solid var(--danger); }
         .type-print { border-left: 5px solid var(--primary); }
+
         .job-info { flex: 1; min-width: 140px; }
         .job-name { font-weight: bold; display: block; }
         .job-tag { font-size: 0.6em; padding: 2px 5px; border-radius: 4px; margin-left: 5px; vertical-align: middle; }
         .tag-cp { background: #444; color: #fff; }
         .tag-ok { background: var(--success); color: #000; }
+
         .job-data { display: flex; gap: 12px; text-align: center; flex-grow: 1; justify-content: space-around; }
         .data-item { display: flex; flex-direction: column; }
         .data-label { font-size: 0.55em; color: #555; text-transform: uppercase; }
         .data-val { font-size: 0.85em; font-weight: bold; }
+
         .job-profit { min-width: 70px; text-align: right; font-weight: 900; font-size: 1.1em; }
         .actions { display: flex; gap: 5px; }
         .action-btn { background: #222; border: 1px solid #444; color: #aaa; cursor: pointer; padding: 8px; border-radius: 6px; }
+        .action-btn.active-status { background: var(--success); color: #000; border-color: var(--success); }
     </style>
 </head>
 <body>
@@ -131,6 +149,10 @@
             <div class="stat-card"><div class="stat-label">Vytlačené (OK)</div><div class="stat-value" id="total_kg_ever">0.00 kg</div></div>
             <div class="stat-card"><div class="stat-label">Čas Tlače (OK)</div><div class="stat-value" id="total_time_ever">0h 0m</div></div>
             <div class="stat-card"><div class="stat-label">Zákazky</div><div class="stat-value" id="stat_count">0</div></div>
+            <div class="stat-card"><div class="stat-label">Obrat</div><div class="stat-value" id="stat_obrat">0.00 €</div></div>
+            <div class="stat-card card-spent"><div class="stat-label">Materiál</div><div class="stat-value" id="total_mat_cost">0.00 €</div></div>
+            <div class="stat-card card-spent"><div class="stat-label">Elektrina</div><div class="stat-value" id="total_ele_cost">0.00 €</div></div>
+            <div class="stat-card card-spent"><div class="stat-label">Iné Extra</div><div class="stat-value" id="total_spent_other">0.00 €</div></div>
             <div class="stat-card card-profit"><div class="stat-label" style="color:var(--success)">Čistý Zisk</div><div class="stat-value" id="stat_profit">0.00 €</div></div>
         </div>
 
@@ -140,7 +162,6 @@
 </div>
 
 <script>
-    // TU JE TVOJ NOVÝ CLOUD LINK
     const CLOUD_URL = "https://script.google.com/macros/s/AKfycbytHjG4psuRQMQslCQqmUDCrFLPMieRGKHt8d2yi9ZrZDYtCVx22EP7qHd8bQqXud67/exec";
     
     let items = [];
@@ -163,7 +184,6 @@
     async function handleCloud(action) {
         const heslo = prompt("Zadajte prístupové heslo:");
         if(!heslo) return;
-
         const btn = document.getElementById(action === 'backup' ? 'btn_backup' : 'btn_restore');
         const origText = btn.innerText;
         btn.innerText = "⏳...";
@@ -171,23 +191,15 @@
         try {
             if(action === 'backup') {
                 const payload = { pass: heslo, data: items };
-                // Pri POST s no-cors nevidíme odpoveď, ale dáta sa odošlú
                 await fetch(CLOUD_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-                alert("Zálohovanie spustené (ak je heslo správne, dáta sa uložia).");
+                alert("Požiadavka na zálohu odoslaná!");
             } else {
                 const res = await fetch(`${CLOUD_URL}?pass=${heslo}`);
                 const result = await res.json();
-                if(result.error) {
-                    alert("Chyba: " + result.error);
-                } else {
-                    items = Array.isArray(result) ? result : [];
-                    refreshUI();
-                    alert("Dáta úspešne obnovené!");
-                }
+                if(result.error) alert("Chyba: " + result.error);
+                else { items = result; refreshUI(); alert("Dáta obnovené!"); }
             }
-        } catch(e) { 
-            alert("Chyba spojenia alebo nesprávne heslo!"); 
-        }
+        } catch(e) { alert("Chyba spojenia!"); }
         btn.innerText = origText;
     }
 
@@ -206,7 +218,6 @@
         const eleC = (totalMins / 60) * 0.12 * e;
 
         if(auto) document.getElementById('view_total_cost').value = (matC + eleC).toFixed(2);
-        
         const cost = parseFloat(document.getElementById('view_total_cost').value) || 0;
         document.getElementById('view_total_w').innerText = totalW.toFixed(0) + " g";
         document.getElementById('view_total_profit').innerText = (p * c - cost).toFixed(2) + " €";
@@ -222,25 +233,15 @@
         const c = updatePreview(false);
         const newItem = {
             id: editingId || Date.now(),
-            type: 'print',
-            status: currentStatus,
-            name: name,
-            sell: Number(c.totalSell),
-            cost: Number(c.cost),
-            profit: Number(c.totalSell - c.cost),
-            totalW: Number(c.totalW),
-            mins: Number(c.totalMins),
-            weight: Number(c.w), h: Number(c.h), m: Number(c.m), 
-            pricePer: Number(c.p),
+            type: 'print', status: currentStatus, name: name,
+            sell: Number(c.totalSell), cost: Number(c.cost), profit: Number(c.totalSell - c.cost),
+            totalW: Number(c.totalW), mins: Number(c.totalMins),
+            weight: Number(c.w), h: Number(c.h), m: Number(c.m), pricePer: Number(c.p),
             count: parseInt(document.getElementById('in_count').value) || 1,
             date: new Date().toLocaleString('sk-SK')
         };
-
-        if(editingId) {
-            items = items.map(i => i.id === editingId ? newItem : i);
-        } else {
-            items.unshift(newItem);
-        }
+        if(editingId) items = items.map(i => i.id === editingId ? newItem : i);
+        else items.unshift(newItem);
         clearForm(); refreshUI();
     }
 
@@ -250,10 +251,8 @@
     }
 
     function editItem(id) {
-        const i = items.find(x => x.id === id); 
-        if(!i || i.type !== 'print') return;
-        editingId = id;
-        setStatus(i.status || 'ok');
+        const i = items.find(x => x.id === id); if(!i || i.type !== 'print') return;
+        editingId = id; setStatus(i.status || 'ok');
         document.getElementById('in_name').value = i.name;
         document.getElementById('in_w').value = i.weight || 0;
         document.getElementById('in_count').value = i.count || 1;
@@ -269,14 +268,10 @@
     }
 
     function clearForm() {
-        editingId = null;
-        setStatus('ok');
-        document.getElementById('in_name').value = '';
-        document.getElementById('in_w').value = '';
-        document.getElementById('in_h').value = '';
-        document.getElementById('in_m').value = '';
-        document.getElementById('in_price_per').value = '';
-        document.getElementById('in_count').value = '1';
+        editingId = null; setStatus('ok');
+        document.getElementById('in_name').value = ''; document.getElementById('in_w').value = '';
+        document.getElementById('in_h').value = ''; document.getElementById('in_m').value = '';
+        document.getElementById('in_price_per').value = ''; document.getElementById('in_count').value = '1';
         document.getElementById('form_title').innerText = "✚ NOVÁ TLAČ";
         document.getElementById('btn_save').innerText = "ULOŽIŤ DO HISTÓRIE";
         document.getElementById('btn_cancel').style.display = "none";
@@ -302,7 +297,7 @@
         const container = document.getElementById('list_container');
         const query = document.getElementById('search_input').value.toLowerCase();
         container.innerHTML = '';
-        let tObrat = 0, tProfit = 0, tKg = 0, tMins = 0, okCount = 0;
+        let tObrat = 0, tProfit = 0, tKg = 0, tMins = 0, tMat = 0, tEle = 0, tOther = 0, okCount = 0;
 
         items.forEach(i => {
             if(query && !i.name.toLowerCase().includes(query)) return;
@@ -320,33 +315,44 @@
             let details = "Iné";
             if(i.type === 'print') {
                 const g = Number(i.totalW) || 0; const m = Number(i.mins) || 0;
-                if(!isCP) { tKg += g; tMins += m; }
+                if(!isCP) {
+                    tKg += g; tMins += m;
+                    const mC = (g/1000)*19; const eC = (m/60)*0.12*0.19;
+                    tMat += mC; tEle += eC;
+                    if(cost > (mC+eC+0.01)) tOther += (cost - (mC+eC));
+                }
                 details = `${g.toFixed(0)}g | ${Math.floor(m/60)}h ${m%60}m`;
-            }
+            } else if(!isCP && i.profit < 0) tOther += Math.abs(i.profit);
 
             container.innerHTML += `
                 <div class="job-card type-${i.type} ${editingId === i.id ? 'is-editing' : ''} ${isCP ? 'is-cp' : ''}">
                     <div class="job-info">
                         <span class="job-name">${i.name} <span class="job-tag ${isCP?'tag-cp':'tag-ok'}">${isCP?'CP':'OK'}</span></span>
-                        <span class="job-date" style="font-size:0.7em; color:#666">${i.date}</span>
+                        <span class="job-date" style="font-size:0.75em; color:#666">${i.date}</span>
                     </div>
                     <div class="job-data">
-                        <div class="data-item"><span class="data-label">Info</span><span class="data-val">${details}</span></div>
-                        <div class="data-item"><span class="data-label">Zisk</span><span class="data-val" style="color:var(--success)">${profit.toFixed(2)}€</span></div>
+                        <div class="data-item"><span class="data-label">Detaily</span><span class="data-val">${details}</span></div>
+                        <div class="data-item"><span class="data-label">Náklad</span><span class="data-val" style="color:var(--danger)">${cost.toFixed(2)}€</span></div>
+                        <div class="data-item"><span class="data-label">Predaj</span><span class="data-val" style="color:var(--primary)">${sell.toFixed(2)}€</span></div>
                     </div>
+                    <div class="job-profit" style="color:${profit>=0?'var(--success)':'var(--danger)'}">${profit.toFixed(2)}€</div>
                     <div class="actions">
-                        <button class="action-btn" title="CP/OK" onclick="toggleItemStatus(${i.id})">⇄</button>
-                        <button class="action-btn" title="Kópia" onclick="duplicateItem(${i.id})">❐</button>
-                        <button class="action-btn" title="Upraviť" onclick="editItem(${i.id})">✎</button>
-                        <button class="action-btn" title="Zmazať" onclick="deleteItem(${i.id})">🗑</button>
+                        <button class="action-btn" onclick="toggleItemStatus(${i.id})">⇄</button>
+                        <button class="action-btn" onclick="duplicateItem(${i.id})">❐</button>
+                        <button class="action-btn" onclick="editItem(${i.id})">✎</button>
+                        <button class="action-btn" onclick="deleteItem(${i.id})">🗑</button>
                     </div>
                 </div>`;
         });
 
         document.getElementById('stat_count').innerText = okCount;
+        document.getElementById('stat_obrat').innerText = tObrat.toFixed(2) + " €";
         document.getElementById('stat_profit').innerText = tProfit.toFixed(2) + " €";
         document.getElementById('total_kg_ever').innerText = (tKg/1000).toFixed(2) + " kg";
         document.getElementById('total_time_ever').innerText = Math.floor(tMins/60) + "h " + (tMins%60) + "m";
+        document.getElementById('total_mat_cost').innerText = tMat.toFixed(2) + " €";
+        document.getElementById('total_ele_cost').innerText = tEle.toFixed(2) + " €";
+        document.getElementById('total_spent_other').innerText = tOther.toFixed(2) + " €";
     }
 </script>
 </body>
